@@ -9,7 +9,7 @@ export const Pagination = () => {
     data,
     error,
     isLoading,
-    // currentPage,
+    currentPage,
     setCurrentPage,
   } = usePagination({
     id: '1',
@@ -18,6 +18,7 @@ export const Pagination = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Failed to load data</div>;
   if (!data) return null;
+
 
   return (
     <>
@@ -29,7 +30,7 @@ export const Pagination = () => {
         ))}
       </ul>
       <CustomPagination
-        currentPage={data.page}
+        currentPage={currentPage}
         totalPages={data.totalPages}
         onPageChange={setCurrentPage}
       />
