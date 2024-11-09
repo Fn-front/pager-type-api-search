@@ -13,3 +13,8 @@ export const main = style({
   padding: 8,
   backgroundColor: `rgba(${vars.colors.white}, 0.04)`,
 });
+
+export const global_container = style({
+  display: 'flex',
+  minHeight: '100vh',
+});
