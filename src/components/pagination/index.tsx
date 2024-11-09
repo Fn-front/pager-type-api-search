@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NextButton from './parts/next'
 import PrevButton from './parts/prev'
 import ListItem from './parts/list'
@@ -8,26 +8,34 @@ import ListItem from './parts/list'
 interface CustomPaginationProps {
   currentPage: number
   totalPages: number
-  onPageChange: (page: number) => void
+  onPageChange: React.Dispatch<React.SetStateAction<number>>
 }
 
 export function CustomPagination({
   currentPage,
   totalPages,
-  // onPageChange
+  onPageChange
 }: CustomPaginationProps) {
 
   const [current, setCurrent] = useState<number>(currentPage ?? 1)
 
+  useEffect(() => {
+    onPageChange(current)
+  }, [current, onPageChange])
+
   return (
     <>
-      <div className='pagination'>
+      <div className='pagination_wrapper'>
         <PrevButton
           current={current}
           setCurrent={setCurrent}
           totalPages={totalPages}
         />
-        <ListItem />
+        <ListItem
+          current={current}
+          setCurrent={setCurrent}
+          totalPages={totalPages}
+        />
         <NextButton
           current={current}
           setCurrent={setCurrent}
