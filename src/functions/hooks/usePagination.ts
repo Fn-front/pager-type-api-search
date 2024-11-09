@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 // import axiosInstance from '@/lib/axios/axiosInstance';
 import type { PaginatedResponse } from '@/functions/types';
@@ -25,10 +25,20 @@ export const usePagination = ({
     return response.data;
   };
 
-  const { data, error, isLoading } = useSWR('/api/data', fetcher, {
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
+  const { data, error, isLoading } = useSWR(
+    ['/api/data', currentPage],
+    () => fetcher('/api/data'),
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      // ページ遷移時に前のデータを保持
+      keepPreviousData: true,
+      // 2秒間の重複リクエストを防ぐ
+      dedupingInterval: 2000,
+    },
+  );
+
+  useEffect(() => {}, [currentPage]);
 
   return {
     data,
