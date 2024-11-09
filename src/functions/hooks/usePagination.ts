@@ -2,31 +2,33 @@
 
 import { useState } from 'react';
 import useSWR from 'swr';
-import axiosInstance from '@/lib/axios/axiosInstance';
+// import axiosInstance from '@/lib/axios/axiosInstance';
 import type { PaginatedResponse } from '@/functions/types';
+import axios from 'axios';
 
 type UsePaginationOptions = {
-  endpoint: string;
+  id: string;
   initialPage?: number;
 };
 
 export const usePagination = ({
-  endpoint,
+  id,
   initialPage = 1,
 }: UsePaginationOptions) => {
   const [currentPage, setCurrentPage] = useState(initialPage);
 
-  const fetcher = (url: string) =>
-    axiosInstance.get<PaginatedResponse>(url).then((res) => res.data);
+  const fetcher = async (url: string) => {
+    const response = await axios.post<PaginatedResponse>(url, {
+      id,
+      page: currentPage,
+    });
+    return response.data;
+  };
 
-  const { data, error, isLoading } = useSWR(
-    `${endpoint}?page=${currentPage}`,
-    fetcher,
-    {
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    },
-  );
+  const { data, error, isLoading } = useSWR('/api/data', fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
 
   return {
     data,
