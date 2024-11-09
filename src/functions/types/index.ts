@@ -4,6 +4,7 @@ export interface PaginationRequest {
 }
 
 export interface DataItem {
+  id: string;
   title: string;
   text: string;
 }
