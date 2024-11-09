@@ -14,8 +14,8 @@ const noto = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  title: 'テンプレ',
-  description: 'テンプレ',
+  title: 'search型ページネーション',
+  description: 'search型ページネーション',
 };
 
 export default function RootLayout({
