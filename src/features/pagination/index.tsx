@@ -1,6 +1,6 @@
 'use client'
 
-import { CustomPagination } from '@/components/Pagination';
+import { CustomPagination } from '@/components/pagination';
 import { usePagination } from '@/functions/hooks/usePagination'
 // import type { DataItem } from '@/functions/types';
 
