@@ -1,6 +1,6 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 import type {
-  PaginationRequest,
+  // PaginationRequest,
   PaginatedResponse,
   DataItem,
 } from '@/functions/types';
@@ -11,14 +11,20 @@ const TOTAL_ITEMS = 100;
 // サンプルデータを生成する関数
 function generateSampleData(): DataItem[] {
   return Array.from({ length: TOTAL_ITEMS }, (_, index) => ({
+    id: `${index}`,
     title: `タイトル ${index + 1}`,
     text: `サンプルアイテム No.${index + 1}`,
   }));
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const body: PaginationRequest = await request.json();
+    // リクエストボディを取得
+    const { id, page } = await request.json();
+
+    if (!id) {
+      throw new Error('ID is required');
+    }
 
     // Validate token if needed
     // const authHeader = request.headers.get('Authorization');
@@ -26,20 +32,15 @@ export async function POST(request: Request) {
     //   throw new Error('Token is missing');
     // }
 
-    // 全データを生成
     const allData = generateSampleData();
-
-    // ページネーション用のデータを切り出す
-    const startIndex = (body.page - 1) * ITEMS_PER_PAGE;
+    const startIndex = (page - 1) * ITEMS_PER_PAGE;
     const endIndex = startIndex + ITEMS_PER_PAGE;
     const paginatedData = allData.slice(startIndex, endIndex);
-
-    // 総ページ数を計算
     const totalPages = Math.ceil(TOTAL_ITEMS / ITEMS_PER_PAGE);
 
     const response: PaginatedResponse = {
       data: paginatedData,
-      page: body.page,
+      page: page,
       totalPages,
     };
 
