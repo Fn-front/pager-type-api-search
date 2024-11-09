@@ -1,12 +1,16 @@
 import type { Metadata } from 'next';
 import { Noto_Sans_JP } from 'next/font/google';
-
-import '@/styles/app.scss'
+import '@/styles/foundation/reset.css'
+import '@/styles/global/global.css'
+import { container, main, global_container } from '@/styles/layout/layout.css'
 
 const noto = Noto_Sans_JP({
   weight: ['400', '700'],
   style: 'normal',
+  display: 'swap',
   subsets: ['latin'],
+  preload: true,
+  variable: '--font-noto-sans-jp'
 });
 
 export const metadata: Metadata = {
@@ -22,9 +26,9 @@ export default function RootLayout({
   return (
     <html lang='ja'>
       <body className={noto.className}>
-        <div className='l_global_container'>
-          <main className='l_main'>
-            <div className='l_container'>
+        <div className={global_container}>
+          <main className={main}>
+            <div className={container}>
               {children}
             </div>
           </main>
