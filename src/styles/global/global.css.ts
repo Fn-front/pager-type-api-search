@@ -1,4 +1,5 @@
 import { createGlobalTheme, globalStyle } from '@vanilla-extract/css';
+import { SPACING } from '../utils/spacing';
 
 // グローバル変数の定義
 export const vars = createGlobalTheme(':root', {
@@ -9,7 +10,7 @@ export const vars = createGlobalTheme(':root', {
     greenLight: '0, 255, 0',
   },
   sizing: {
-    basePx: '8',
+    basePx: SPACING.base.toString(),
   },
 });
 
