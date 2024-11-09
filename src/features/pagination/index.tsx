@@ -1,7 +1,7 @@
 'use client'
 
 import { usePagination } from '@/functions/hooks/usePagination'
-import type { DataItem } from '@/functions/types';
+// import type { DataItem } from '@/functions/types';
 
 export const Pagination = () => {
   const {
@@ -10,7 +10,7 @@ export const Pagination = () => {
     isLoading,
     // currentPage,
     // setCurrentPage,
-  } = usePagination<DataItem>({
+  } = usePagination({
     id: '1',
   });
 
