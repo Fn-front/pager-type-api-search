@@ -42,7 +42,6 @@ export function CustomPagination({
           totalPages={totalPages}
         />
       </div>
-      <p>現在のページ：{current}</p>
     </>
   )
 }
