@@ -9,7 +9,8 @@ export const List = (props: Props) => {
   const { totalPages, current, setCurrent } = props
 
   // 固定で5ページ表示
-  const visiblePages = 5;
+  const visibleNum = 5;
+  const visiblePages = (totalPages > visibleNum) ? visibleNum : totalPages;
 
   // 表示するページ番号を取得
   const getVisiblePages = () => {
@@ -26,7 +27,7 @@ export const List = (props: Props) => {
 
   // 三点リーダーの表示判定
   const shouldShowEllipsis = () => {
-    return current <= totalPages - 3;
+    return totalPages > visibleNum && current <= totalPages - 3;
   };
 
   return (
@@ -40,12 +41,16 @@ export const List = (props: Props) => {
             <button>{number}</button>
           </li>
         ))}
+        {/* 三点リーダー - currentPageが最後の3ページより前の場合に表示 */}
+        {shouldShowEllipsis() && (
+          <>
+            <li><span>...</span></li>
+            <li onClick={() => handlePageChange(totalPages)}>
+              <button>{totalPages}</button>
+            </li>
+          </>
+        )}
       </ul>
-
-      {/* 三点リーダー - currentPageが最後の3ページより前の場合に表示 */}
-      {shouldShowEllipsis() && (
-        <span>...</span>
-      )}
     </>
   )
 }
