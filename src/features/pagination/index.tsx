@@ -1,5 +1,6 @@
 'use client'
 
+import { CustomPagination } from '@/components/Pagination';
 import { usePagination } from '@/functions/hooks/usePagination'
 // import type { DataItem } from '@/functions/types';
 
@@ -9,7 +10,7 @@ export const Pagination = () => {
     error,
     isLoading,
     // currentPage,
-    // setCurrentPage,
+    setCurrentPage,
   } = usePagination({
     id: '1',
   });
@@ -27,6 +28,11 @@ export const Pagination = () => {
           </li>
         ))}
       </ul>
+      <CustomPagination
+        currentPage={data.page}
+        totalPages={data.totalPages}
+        onPageChange={setCurrentPage}
+      />
     </>
   )
 }
