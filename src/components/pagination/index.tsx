@@ -5,6 +5,8 @@ import NextButton from './parts/next'
 import PrevButton from './parts/prev'
 import ListItem from './parts/list'
 
+import { pagination_wrapper } from './style.css'
+
 interface CustomPaginationProps {
   currentPage: number
   totalPages: number
@@ -25,7 +27,7 @@ export function CustomPagination({
 
   return (
     <>
-      <div className='pagination_wrapper'>
+      <div className={pagination_wrapper}>
         <PrevButton
           current={current}
           setCurrent={setCurrent}
