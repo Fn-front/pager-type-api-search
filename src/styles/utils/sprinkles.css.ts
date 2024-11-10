@@ -8,6 +8,8 @@ const space = {
   small: `${SPACING.base * 1}px`,
   medium: `${SPACING.base * 2}px`,
   large: `${SPACING.base * 3}px`,
+  xLarge: `${SPACING.base * 4}px`,
+  xxLarge: `${SPACING.base * 5}px`,
 };
 
 const colors = {
@@ -20,7 +22,7 @@ const colors = {
 const properties = defineProperties({
   properties: {
     padding: space,
-    margin: space,
+    marginTop: space,
     backgroundColor: colors,
     color: colors,
     display: ['none', 'flex', 'block', 'inline'],
