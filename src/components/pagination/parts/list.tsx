@@ -1,3 +1,6 @@
+// import { sprinkles } from '@/styles/utils/sprinkles.css';
+import { pagination, pagination_item, pagination_item_button, pagination_item_active } from '../style.css'
+
 type Props = {
   current: number
   setCurrent: React.Dispatch<React.SetStateAction<number>>
@@ -32,21 +35,27 @@ export const List = (props: Props) => {
 
   return (
     <>
-      <ul className='pagination'>
+      <ul
+        className={pagination}
+      >
         {getVisiblePages().map(number => (
           <li
             key={number}
             onClick={() => handlePageChange(number)}
+            className={`${pagination_item} ${current === number ? pagination_item_active : ''}`}
           >
-            <button>{number}</button>
+            <button className={pagination_item_button}><span>{number}</span></button>
           </li>
         ))}
-        {/* 三点リーダー - currentPageが最後の3ページより前の場合に表示 */}
+        {/* 三点リーダー currentPageが最後の3ページより前の場合に表示 */}
         {shouldShowEllipsis() && (
           <>
             <li><span>...</span></li>
-            <li onClick={() => handlePageChange(totalPages)}>
-              <button>{totalPages}</button>
+            <li
+              onClick={() => handlePageChange(totalPages)}
+              className={pagination_item}
+            >
+              <button className={pagination_item_button}><span>{totalPages}</span></button>
             </li>
           </>
         )}
